@@ -1,22 +1,29 @@
-package TestNG;
+package WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class EditUserName {
-	//create a private instance of a webdriver
-	 private WebDriver driver;
-	 @Test(/*dataProvider="getCreateData",*/ alwaysRun = true,priority=1 )
-	  public void Main() throws InterruptedException {
-		  //call the get driver function
-		  getDriver();
-		  
+
+	public static void main(String[] args) throws InterruptedException  {
+		
+
+			System.setProperty("webdriver.gecko.driver", "C:\\Users\\user\\Desktop\\geckodriver.exe");
+			
+			
+			WebDriver driver = new FirefoxDriver();
+			driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+			driver.navigate().to("https://trello.com/login/");
+			driver.manage().window().maximize();
+			
+			driver.findElement(By.xpath(".//*[@id=\"user\"]")).sendKeys("nour150168@bue.edu.eg");
+			driver.findElement(By.xpath(".//*[@id=\"password\"]")).sendKeys("1234567890");
+			driver.findElement(By.xpath(".//*[@id=\"login\"]")).click();
+			
+			
 			// press the image button
 			driver.findElement(By.xpath("//*[@id=\"header\"]/div[5]/a[4]/span/span[1]")).click();
 		// press settings
@@ -40,35 +47,15 @@ public class EditUserName {
 		}
 		else { System.out.println("An error occured");}
 		
-		
-	  }
-		@BeforeMethod(alwaysRun = true)
-		  public void beforeMethod() {
+		driver.close();
+		driver.quit();
 
-				System.setProperty("webdriver.gecko.driver", "C:\\Users\\user\\Desktop\\geckodriver.exe");
-				 driver = new FirefoxDriver();
-			   driver.navigate().to("https://trello.com");
-				driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
-				// will going to maximize the Browser window.
-				driver.manage().window().maximize();
-				driver.navigate().to("https://trello.com/login/");
-				
-				driver.findElement(By.xpath(".//*[@id=\"user\"]")).sendKeys("nour150168@bue.edu.eg");
-				driver.findElement(By.xpath(".//*[@id=\"password\"]")).sendKeys("1234567890");
-				driver.findElement(By.xpath(".//*[@id=\"login\"]")).click();
-		  }
+	}
 
-		  @AfterMethod(alwaysRun = true)
-		  public void afterMethod() {
-			  
-			  driver.close();
+	
 
-			
-			 
-		  }
-		  public WebDriver getDriver (){
-			  
-		      return driver;
-		  }
+	}
 
-}
+
+
+
